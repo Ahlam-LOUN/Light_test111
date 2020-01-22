@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dalili lighting</string>
+    <string name="Salutation">Welcome to your service</string>
+    <string name="entrer">Test your brightness</string>
+    <string name="bonjour">Hello</string>
+</resources>
