@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
      //Initialisation de mediaPlayer
-        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music);
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.bbip);
      //Acceder au capteur
         sensorManager =(SensorManager) getSystemService(SENSOR_SERVICE);
         //S'abonner aux evenements du capteur de type light
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity  {
                 float value = event.values[0];
                 //getSupportActionBar().setTitle("Limunosity is hhhhh : " + value + " LX");
                 volume = (float) (volume + (value/10));
-                vivo=(float) (value/10);
+                vivo=(float) (value/50);
                 //J'adapte le volume du média player avec la valeur qu'on a (Values[0])
                 mediaPlayer.setVolume(vivo, vivo);
 
@@ -116,7 +116,7 @@ public void play(View v){
         mediaPlayer.stop();
         Toast.makeText(this,"Stop playing.",Toast.LENGTH_SHORT).show();}
 else
-        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music);
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.bbip);
         mediaPlayer.start();
 
 }
