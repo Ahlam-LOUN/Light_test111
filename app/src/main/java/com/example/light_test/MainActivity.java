@@ -117,7 +117,8 @@ public void play(View v){
         Toast.makeText(this,"Stop playing.",Toast.LENGTH_SHORT).show();}
 else
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.bbip);
-        mediaPlayer.start();
+    mediaPlayer.setLooping(true);
+    mediaPlayer.start();
 
 }
 
