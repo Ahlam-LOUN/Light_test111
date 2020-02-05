@@ -1,6 +1,8 @@
 package com.example.light_test;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -9,6 +11,7 @@ import android.media.MediaPlayer;
 import android.media.PlaybackParams;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -42,6 +45,7 @@ static   float  vivo,speed;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
    //les phrases de l'entré de l'application
         textView1 = (TextView) findViewById(R.id.salutation);
         textView1.setText(R.string.Salutation);
@@ -123,12 +127,19 @@ static   float  vivo,speed;
 
 
 //Arreter  media player ou bien la redemarer
+
 @RequiresApi(api = Build.VERSION_CODES.M)
+
 public void play(View v){
+    Vibrator vc=(Vibrator)getSystemService(MainActivity.VIBRATOR_SERVICE);
+    vc.vibrate(1000);
+    //80 represents the milliseconds (the duration of the vibration)
     if(mediaPlayer.isPlaying()){
         mediaPlayer.stop();
+
         Toast.makeText(this,"Stop playing.",Toast.LENGTH_SHORT).show();}
 else{
+
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.bbip);
 mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setSpeed(speed));
     // Marshmallow+ support setting the playback speed natively
