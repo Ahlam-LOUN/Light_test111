@@ -6,6 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
+import android.media.PlaybackParams;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -32,9 +33,11 @@ public class MainActivity extends AppCompatActivity  {
 
   ////Declaration du media player
   public  MediaPlayer mediaPlayer;
+  public   PlaybackParams params ;
   private final static int MAX_VOLUME = 100;
-  float volume = 0.5f;
-  float vivo;
+    static   float volume = 0.5f;
+static   float  vivo,speed;
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity  {
 
      //Initialisation de mediaPlayer
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.bbip);
+       params = new PlaybackParams();
      //Acceder au capteur
         sensorManager =(SensorManager) getSystemService(SENSOR_SERVICE);
         //S'abonner aux evenements du capteur de type light
@@ -77,6 +81,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
+
         //Recevoir les notification depuis Sensor manager
         sevnt=new SensorEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -86,9 +91,16 @@ public class MainActivity extends AppCompatActivity  {
                 float value = event.values[0];
                 //getSupportActionBar().setTitle("Limunosity is hhhhh : " + value + " LX");
                 volume = (float) (volume + (value/10));
-                vivo=(float) (value/50);
+                vivo=(float) (value/10);
                 //J'adapte le volume du média player avec la valeur qu'on a (Values[0])
+                speed =(float) (value/10);
+                if(speed<0){
+                    speed=speed*(-1);
+                }
+
+               // mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setSpeed(speed));
                 mediaPlayer.setVolume(vivo, vivo);
+
 
 
             }
@@ -111,14 +123,18 @@ public class MainActivity extends AppCompatActivity  {
 
 
 //Arreter  media player ou bien la redemarer
+@RequiresApi(api = Build.VERSION_CODES.M)
 public void play(View v){
     if(mediaPlayer.isPlaying()){
         mediaPlayer.stop();
         Toast.makeText(this,"Stop playing.",Toast.LENGTH_SHORT).show();}
-else
+else{
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.bbip);
-    mediaPlayer.setLooping(true);
-    mediaPlayer.start();
+mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setSpeed(speed));
+    // Marshmallow+ support setting the playback speed natively
+       // mediaPlayer.setPlaybackParams(params);
+        mediaPlayer.setLooping(true);
+         mediaPlayer.start();}
 
 }
 
