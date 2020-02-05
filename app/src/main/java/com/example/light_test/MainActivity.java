@@ -71,7 +71,7 @@ static   float  vivo,speed;
 
 
      //Initialisation de mediaPlayer
-        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.bbip);
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.muu);
        params = new PlaybackParams();
      //Acceder au capteur
         sensorManager =(SensorManager) getSystemService(SENSOR_SERVICE);
@@ -132,7 +132,7 @@ static   float  vivo,speed;
 
 public void play(View v){
     Vibrator vc=(Vibrator)getSystemService(MainActivity.VIBRATOR_SERVICE);
-    vc.vibrate(1000);
+    vc.vibrate(900);
     //80 represents the milliseconds (the duration of the vibration)
     if(mediaPlayer.isPlaying()){
         mediaPlayer.stop();
@@ -140,7 +140,7 @@ public void play(View v){
         Toast.makeText(this,"Stop playing.",Toast.LENGTH_SHORT).show();}
 else{
 
-        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.bbip);
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.muu);
 mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setSpeed(speed));
     // Marshmallow+ support setting the playback speed natively
        // mediaPlayer.setPlaybackParams(params);
